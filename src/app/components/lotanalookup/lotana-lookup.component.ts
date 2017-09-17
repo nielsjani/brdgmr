@@ -10,7 +10,6 @@ import {LotanaLookupService} from "../../service/lotana/lookup.lotana.service";
 export class LotanaLookupComponent {
   private gameLookupForm: FormGroup;
   private retrievedBoardgames: Boardgame[];
-  private showUnavailableResults = true;
 
   constructor(public navCtrl: NavController, private formBuilder: FormBuilder, private lotanaLookupService: LotanaLookupService) {
     this.gameLookupForm = this.formBuilder.group({
@@ -28,15 +27,4 @@ export class LotanaLookupComponent {
     return this.gameLookupForm.value.gamename ? this.gameLookupForm.value.gamename : "game";
   }
 
-  getIconName(foundGame) {
-    return foundGame.available ? "checkmark" : "close";
-  }
-
-  getButtonColor(foundGame) {
-    return foundGame.available ? "secondary" : "danger";
-  }
-
-  getAvailableText(foundGame) {
-    return foundGame.available ? "Available" : "Unavailable";
-  }
 }

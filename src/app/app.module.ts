@@ -11,12 +11,14 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import {LotanaLookupService} from "./service/lotana/lookup.lotana.service";
 import {LotanaLookupComponent} from "./components/lotanalookup/lotana-lookup.component";
 import {UnavailablePipe} from "./filter/unavailable.pipe";
+import {LookupResultsComponent} from "./components/lookupresults/lookup-results.component";
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     ListPage,
+    LookupResultsComponent,
     LotanaLookupComponent,
     UnavailablePipe
   ],

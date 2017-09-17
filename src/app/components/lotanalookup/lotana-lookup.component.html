@@ -9,28 +9,7 @@
 
   <button ion-button type="submit" secondary>Look up {{getGameName()}}</button>
 </form>
-<!--TODO: van results ook herbruikbare component maken die alle lookup componenten kunnen gebruiken-->
-<ion-item *ngIf="retrievedBoardgames && retrievedBoardgames.length > 0">
-  <ion-label>Show unavailable</ion-label>
-  <ion-toggle [(ngModel)]="showUnavailableResults"></ion-toggle>
-</ion-item>
 
-<ion-card *ngFor="let foundGame of retrievedBoardgames | unavailable:showUnavailableResults">
-  <ion-card-header>{{foundGame.name}}</ion-card-header>
-  <img height="25%" src="{{foundGame.image}}"/>
-  <ion-row>
-    <ion-col>
-      <button ion-button round small icon-left color="primary">
-        <ion-icon name="pricetag">{{foundGame.price}} euro</ion-icon>
-      </button>
-    </ion-col>
-    <ion-col>
-      <button ion-button round small icon-right color="{{getButtonColor(foundGame)}}">
-        {{getAvailableText(foundGame)}}
-        <ion-icon name="{{getIconName(foundGame)}}"></ion-icon>
-      </button>
-    </ion-col>
-  </ion-row>
-</ion-card>
+<lookup-results [retrievedBoardgames]="retrievedBoardgames"></lookup-results>
 
 <div id="jquerydump" style="display:none"></div>
