@@ -1,3 +1,13 @@
+<form [formGroup]="gameLookupForm" (ngSubmit)="lookupGame()">
+
+  <ion-item>
+    <ion-label>Game name</ion-label>
+    <ion-input type="text" formControlName="gamename" placeholder="Monopoly"></ion-input>
+  </ion-item>
+
+  <button ion-button type="submit" secondary>Look up {{getGameName()}}</button>
+</form>
+
 <ion-item *ngIf="retrievedBoardgames && retrievedBoardgames.length > 0">
   <ion-label>Show unavailable</ion-label>
   <ion-toggle [(ngModel)]="showUnavailableResults"></ion-toggle>
@@ -20,3 +30,5 @@
     </ion-col>
   </ion-row>
 </ion-card>
+
+<div id="jquerydump" style="display:none"></div>

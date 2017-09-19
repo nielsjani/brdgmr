@@ -1,4 +1,4 @@
-import { Boardgame } from "../../class/boardgame";
+import { Boardgame } from "../../../class/boardgame";
 var LotanaMapper = (function () {
     function LotanaMapper() {
     }
@@ -10,7 +10,7 @@ var LotanaMapper = (function () {
             .withImage(toMap.getElementsByTagName("img")[0].src);
     };
     LotanaMapper.prototype.stripPrice = function (priceText) {
-        return priceText.replace(",", "").trim();
+        return priceText.replace("€", "").trim();
     };
     return LotanaMapper;
 }());

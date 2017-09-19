@@ -1,15 +1,5 @@
 <h3>Find game in <a href="http://wwww.lotana.be">Lotana</a> inventory</h3>
 
-<form [formGroup]="gameLookupForm" (ngSubmit)="lookupGame()">
-
-  <ion-item>
-    <ion-label>Game name</ion-label>
-    <ion-input type="text" formControlName="gamename" placeholder="Monopoly"></ion-input>
-  </ion-item>
-
-  <button ion-button type="submit" secondary>Look up {{getGameName()}}</button>
-</form>
-
-<lookup-results [retrievedBoardgames]="retrievedBoardgames"></lookup-results>
+<lookup-results [lookupService]="lotanaLookupService"></lookup-results>
 
 <div id="jquerydump" style="display:none"></div>

@@ -7,26 +7,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { FormBuilder, FormControl } from "@angular/forms";
-import { LotanaLookupService } from "../../app/service/lotana/lookup.lotana.service";
+import { Component } from "@angular/core";
+import { NavController } from "ionic-angular";
 var HomePage = (function () {
-    function HomePage(navCtrl, formBuilder, lotanaLookupService) {
+    function HomePage(navCtrl) {
         this.navCtrl = navCtrl;
-        this.formBuilder = formBuilder;
-        this.lotanaLookupService = lotanaLookupService;
-        this.gameLookupForm = this.formBuilder.group({
-            gamename: new FormControl("")
-        });
-        this.lotanaLookupService = lotanaLookupService;
     }
-    HomePage.prototype.lookupGame = function () {
-        this.lotanaLookupService.lookup(this.gameLookupForm.value.gamename);
-    };
-    HomePage.prototype.getGameName = function () {
-        return this.gameLookupForm.value.gamename ? this.gameLookupForm.value.gamename : "game";
-    };
     return HomePage;
 }());
 HomePage = __decorate([
@@ -34,7 +20,7 @@ HomePage = __decorate([
         selector: 'page-home',
         templateUrl: 'home.html'
     }),
-    __metadata("design:paramtypes", [NavController, FormBuilder, LotanaLookupService])
+    __metadata("design:paramtypes", [NavController])
 ], HomePage);
 export { HomePage };
 //# sourceMappingURL=home.js.map

@@ -12,7 +12,13 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { LotanaLookupService } from "./service/lotana/lookup.lotana.service";
+import { LotanaLookupService } from "./service/lookup/lotana/lookup.lotana.service";
+import { LotanaLookupComponent } from "./components/lotanalookup/lotana-lookup.component";
+import { UnavailablePipe } from "./filter/unavailable.pipe";
+import { LookupResultsComponent } from "./components/lookupresults/lookup-results.component";
+import { SpelshopLookupComponent } from "./components/spelshoplookup/spelshop-lookup.component";
+import { SpelshopLookupService } from "./service/lookup/spelshop/lookup.spelshop.service";
+import { QueenOfGamesLookupComponent } from "./components/queenofgameslookup/queenofgames-lookup.component";
 var AppModule = (function () {
     function AppModule() {
     }
@@ -23,7 +29,12 @@ AppModule = __decorate([
         declarations: [
             MyApp,
             HomePage,
-            ListPage
+            ListPage,
+            LookupResultsComponent,
+            LotanaLookupComponent,
+            QueenOfGamesLookupComponent,
+            SpelshopLookupComponent,
+            UnavailablePipe
         ],
         imports: [
             BrowserModule,
@@ -39,7 +50,8 @@ AppModule = __decorate([
             StatusBar,
             SplashScreen,
             { provide: ErrorHandler, useClass: IonicErrorHandler },
-            LotanaLookupService
+            LotanaLookupService,
+            SpelshopLookupService
         ]
     })
 ], AppModule);
