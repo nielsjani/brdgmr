@@ -7,6 +7,7 @@ export class SpelonkMapper {
       .withPrice(this.stripPrice(this.getPrice(toMap)))
       .withAvailable(this.mapAvailable(toMap, outOfStockIds))
       .withImage(toMap.getElementsByTagName("img")[0].src)
+      .withUrl(toMap.getElementsByClassName("image")[0].getElementsByTagName("a")[0].href)
       ;
   }
 

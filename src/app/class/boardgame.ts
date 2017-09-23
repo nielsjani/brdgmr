@@ -3,11 +3,15 @@ export class Boardgame {
   public available: boolean;
   public price:string;
   public image:string;
-  //TODO: ook url naar detail pagina invullen!
+  private url: string;
 
   constructor() {
   }
 
+  withUrl(value: string) {
+    this.url = value;
+    return this;
+  }
 
   withName(value: string) {
     this.name = value;

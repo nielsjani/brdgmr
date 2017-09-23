@@ -8,6 +8,7 @@ export class QueenOfGamesMapper {
       //unavailable products are not returned
       .withAvailable(true)
       .withImage(toMap.getElementsByTagName("img")[0].src)
+      .withUrl(toMap.getElementsByTagName("a")[0].href)
       ;
   }
 

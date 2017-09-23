@@ -7,6 +7,7 @@ export class SpelshopMapper {
       .withPrice(this.stripPrice(this.getPrice(toMap)))
       .withAvailable(toMap.getElementsByClassName("out-of-stock").length === 0)
       .withImage(toMap.getElementsByTagName("img")[0].src)
+      .withUrl(toMap.getElementsByTagName("a")[0].href)
       ;
   }
 
