@@ -16,6 +16,8 @@ import {SpelshopLookupComponent} from "./components/spelshoplookup/spelshop-look
 import {SpelshopLookupService} from "./service/lookup/spelshop/lookup.spelshop.service";
 import {QueenOfGamesLookupComponent} from "./components/queenofgameslookup/queenofgames-lookup.component";
 import {QueenOfGamesLookupService} from "./service/lookup/queenofgames/lookup.queenofgames.service";
+import {SpelonkLookupComponent} from "./components/spelonklookup/spelshop-lookup.component";
+import {SpelonkLookupService} from "./service/lookup/spelonk/lookup.spelonk.service";
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import {QueenOfGamesLookupService} from "./service/lookup/queenofgames/lookup.qu
     LookupResultsComponent,
     LotanaLookupComponent,
     SpelshopLookupComponent,
+    SpelonkLookupComponent,
     QueenOfGamesLookupComponent,
     UnavailablePipe
   ],
@@ -44,7 +47,8 @@ import {QueenOfGamesLookupService} from "./service/lookup/queenofgames/lookup.qu
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     LotanaLookupService,
     SpelshopLookupService,
-    QueenOfGamesLookupService
+    QueenOfGamesLookupService,
+    SpelonkLookupService
   ]
 })
 export class AppModule {}
