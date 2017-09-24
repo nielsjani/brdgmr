@@ -8,19 +8,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from "@angular/core";
-import { NavController } from "ionic-angular";
-var HomePage = (function () {
-    function HomePage(navCtrl) {
-        this.navCtrl = navCtrl;
+import { SpelshopLookupService } from "../../service/lookup/spelshop/lookup.spelshop.service";
+var SpelshopLookupComponent = (function () {
+    function SpelshopLookupComponent(spelshopLookupService) {
+        this.spelshopLookupService = spelshopLookupService;
+        this.spelshopLookupService = spelshopLookupService;
     }
-    return HomePage;
+    return SpelshopLookupComponent;
 }());
-HomePage = __decorate([
+SpelshopLookupComponent = __decorate([
     Component({
-        selector: 'page-home',
-        templateUrl: 'home.html'
+        selector: 'spelshop-lookup',
+        templateUrl: './spelshop-lookup.component.html'
     }),
-    __metadata("design:paramtypes", [NavController])
-], HomePage);
-export { HomePage };
-//# sourceMappingURL=home.js.map
+    __metadata("design:paramtypes", [SpelshopLookupService])
+], SpelshopLookupComponent);
+export { SpelshopLookupComponent };
+//# sourceMappingURL=spelshop-lookup.component.js.map

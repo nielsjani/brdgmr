@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
 import {Boardgame} from "../../class/boardgame";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {NavController} from "ionic-angular";
@@ -6,17 +6,32 @@ import {NavController} from "ionic-angular";
   selector: 'lookup-results',
   templateUrl: './lookup-results.component.html'
 })
-export class LookupResultsComponent {
+export class LookupResultsComponent implements OnInit{
+
   @Input()
   private lookupService: any;
+  @Input()
+  private initWithLookup: any;
+  @Output()
+  private gameSelected = new EventEmitter();
+
+  // tslint:disable-next-line
   private showUnavailableResults = true;
   private gameLookupForm: FormGroup;
   private retrievedBoardgames: Boardgame[];
+  private selectedGame: Boardgame;
 
   constructor(public navCtrl: NavController, private formBuilder: FormBuilder) {
     this.gameLookupForm = this.formBuilder.group({
       gamename: new FormControl("")
     });
+  }
+
+  ngOnInit(): void {
+    if(this.initWithLookup){
+      this.gameLookupForm.setValue({gamename: this.initWithLookup});
+      this.lookupGame();
+    }
   }
 
   getIconName(foundGame) {
@@ -38,6 +53,21 @@ export class LookupResultsComponent {
   lookupGame() {
     return this.lookupService.lookup(this.gameLookupForm.value.gamename)
       .then(boardgames => this.retrievedBoardgames = boardgames);
+  }
+
+  selectGame(game: Boardgame){
+    this.selectedGame = game;
+  }
+
+  getSelectedColor(foundGame) {
+    if(this.selectedGame === foundGame) {
+      return "primary";
+    }
+    return "";
+  }
+
+  confirmSelection() {
+    this.gameSelected.emit({selectedGame: this.selectedGame, gameNameInput: this.gameLookupForm.value.gamename});
   }
 
 }

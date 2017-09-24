@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Wishlist</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-item>
+    <h2>Wishlist</h2>
+    <button ion-button outline item-end icon-right (click)="goToAddToWishListPage()">
+      Add item to wishlist
+      <ion-icon name="arrow-dropright"></ion-icon>
+    </button>
+  </ion-item>
+
+  <!--TODO: fetch from db and show-->
+  <ion-list>
+    <ion-item>
+      <ion-thumbnail item-start>
+        <img src="https://ionicframework.com/dist/preview-app/www/assets/img/thumbnail-totoro.png">
+      </ion-thumbnail>
+      <h2>Monopoly</h2>
+      <!--<p>Hayao Miyazaki • 1988</p>-->
+      <button ion-button clear item-end>View</button>
+    </ion-item>
+  </ion-list>
+
+  <!--<lotana-lookup></lotana-lookup>-->
+</ion-content>

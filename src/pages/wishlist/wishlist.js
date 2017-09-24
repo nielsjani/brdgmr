@@ -8,20 +8,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from "@angular/core";
-import { SpelonkLookupService } from "../../service/lookup/spelonk/lookup.spelonk.service";
-var SpelonkLookupComponent = (function () {
-    function SpelonkLookupComponent(spelonkLookupService) {
-        this.spelonkLookupService = spelonkLookupService;
-        this.spelonkLookupService = spelonkLookupService;
+import { NavController } from "ionic-angular";
+var WishlistPage = (function () {
+    function WishlistPage(navCtrl) {
+        this.navCtrl = navCtrl;
     }
-    return SpelonkLookupComponent;
+    return WishlistPage;
 }());
-SpelonkLookupComponent = __decorate([
+WishlistPage = __decorate([
     Component({
-        selector: 'spelonk-lookup',
-        templateUrl: './spelonk-lookup.component.html'
+        selector: 'page-wishlist',
+        templateUrl: 'wishlist.html'
     }),
-    __metadata("design:paramtypes", [SpelonkLookupService])
-], SpelonkLookupComponent);
-export { SpelonkLookupComponent };
-//# sourceMappingURL=spelshop-lookup.component.js.map
+    __metadata("design:paramtypes", [NavController])
+], WishlistPage);
+export { WishlistPage };
+//# sourceMappingURL=wishlist.js.map

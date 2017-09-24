@@ -7,7 +7,8 @@ var LotanaMapper = (function () {
             .withName(toMap.getElementsByClassName("product-name")[0].textContent)
             .withPrice(this.stripPrice(toMap.getElementsByClassName("price")[0].textContent))
             .withAvailable(toMap.getElementsByClassName("out-of-stock").length === 0)
-            .withImage(toMap.getElementsByTagName("img")[0].src);
+            .withImage(toMap.getElementsByTagName("img")[0].src)
+            .withUrl(toMap.getElementsByTagName("a")[0].href);
     };
     LotanaMapper.prototype.stripPrice = function (priceText) {
         return priceText.replace("€", "").trim();

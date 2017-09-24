@@ -8,7 +8,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
+import { WishlistPage } from '../pages/wishlist/wishlist';
 import { ListPage } from '../pages/list/list';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -19,6 +19,9 @@ import { LookupResultsComponent } from "./components/lookupresults/lookup-result
 import { SpelshopLookupComponent } from "./components/spelshoplookup/spelshop-lookup.component";
 import { SpelshopLookupService } from "./service/lookup/spelshop/lookup.spelshop.service";
 import { QueenOfGamesLookupComponent } from "./components/queenofgameslookup/queenofgames-lookup.component";
+import { QueenOfGamesLookupService } from "./service/lookup/queenofgames/lookup.queenofgames.service";
+import { SpelonkLookupComponent } from "./components/spelonklookup/spelshop-lookup.component";
+import { SpelonkLookupService } from "./service/lookup/spelonk/lookup.spelonk.service";
 var AppModule = (function () {
     function AppModule() {
     }
@@ -28,12 +31,13 @@ AppModule = __decorate([
     NgModule({
         declarations: [
             MyApp,
-            HomePage,
+            WishlistPage,
             ListPage,
             LookupResultsComponent,
             LotanaLookupComponent,
-            QueenOfGamesLookupComponent,
             SpelshopLookupComponent,
+            SpelonkLookupComponent,
+            QueenOfGamesLookupComponent,
             UnavailablePipe
         ],
         imports: [
@@ -43,7 +47,7 @@ AppModule = __decorate([
         bootstrap: [IonicApp],
         entryComponents: [
             MyApp,
-            HomePage,
+            WishlistPage,
             ListPage
         ],
         providers: [
@@ -51,7 +55,9 @@ AppModule = __decorate([
             SplashScreen,
             { provide: ErrorHandler, useClass: IonicErrorHandler },
             LotanaLookupService,
-            SpelshopLookupService
+            SpelshopLookupService,
+            QueenOfGamesLookupService,
+            SpelonkLookupService
         ]
     })
 ], AppModule);

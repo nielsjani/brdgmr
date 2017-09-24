@@ -1,3 +1,10 @@
+<!--Always show, because shop might not have item you're looking for-->
+<ion-fab bottom right style="position:fixed">
+  <button ion-fab color="nextGameSelect" (click)="confirmSelection()">
+    <ion-icon  name="arrow-round-forward"></ion-icon>
+  </button>
+</ion-fab>
+
 <form [formGroup]="gameLookupForm" (ngSubmit)="lookupGame()">
 
   <ion-item>
@@ -5,6 +12,7 @@
     <ion-input type="text" formControlName="gamename" placeholder="Monopoly"></ion-input>
   </ion-item>
 
+  <!--TODO: indication that search is in progress-->
   <button ion-button type="submit" secondary>Look up {{getGameName()}}</button>
 </form>
 
@@ -13,10 +21,10 @@
   <ion-toggle [(ngModel)]="showUnavailableResults"></ion-toggle>
 </ion-item>
 
-<ion-card *ngFor="let foundGame of retrievedBoardgames | unavailable:showUnavailableResults">
-  <ion-card-header class="head-text-wrap">{{foundGame.name}}</ion-card-header>
+<ion-card *ngFor="let foundGame of retrievedBoardgames | unavailable:showUnavailableResults" color="{{getSelectedColor(foundGame)}}">
+  <ion-card-header class="head-text-wrap" (click)="selectGame(foundGame)">{{foundGame.name}}</ion-card-header>
   <a target="_blank" href="{{foundGame.url}}"><img src="{{foundGame.image}}"/></a>
-  <ion-row>
+  <ion-row (click)="selectGame(foundGame)">
     <ion-col>
       <button ion-button round small icon-left color="primary">
         <ion-icon name="pricetag">{{foundGame.price}} euro</ion-icon>

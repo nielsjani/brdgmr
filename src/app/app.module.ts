@@ -3,7 +3,7 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
+import { WishlistPage } from '../pages/wishlist/wishlist';
 import { ListPage } from '../pages/list/list';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -16,19 +16,23 @@ import {SpelshopLookupComponent} from "./components/spelshoplookup/spelshop-look
 import {SpelshopLookupService} from "./service/lookup/spelshop/lookup.spelshop.service";
 import {QueenOfGamesLookupComponent} from "./components/queenofgameslookup/queenofgames-lookup.component";
 import {QueenOfGamesLookupService} from "./service/lookup/queenofgames/lookup.queenofgames.service";
-import {SpelonkLookupComponent} from "./components/spelonklookup/spelshop-lookup.component";
+import {SpelonkLookupComponent} from "./components/spelonklookup/spelonk-lookup.component";
 import {SpelonkLookupService} from "./service/lookup/spelonk/lookup.spelonk.service";
+import {AddToWishlistPage} from "../pages/add-to-wishlist/add-to-wishlist";
+import {AddToWishlisFinalLookupComponent} from "./components/add-to-wishlist-final/add-to-wishlist-final.component";
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
+    WishlistPage,
+    AddToWishlistPage,
     ListPage,
     LookupResultsComponent,
     LotanaLookupComponent,
     SpelshopLookupComponent,
     SpelonkLookupComponent,
     QueenOfGamesLookupComponent,
+    AddToWishlisFinalLookupComponent,
     UnavailablePipe
   ],
   imports: [
@@ -38,8 +42,9 @@ import {SpelonkLookupService} from "./service/lookup/spelonk/lookup.spelonk.serv
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
-    ListPage
+    WishlistPage,
+    ListPage,
+    AddToWishlistPage
   ],
   providers: [
     StatusBar,

@@ -1,0 +1,21 @@
+<ion-content padding>
+  <ion-card>
+    <ion-card-header>
+      <h1 class="head-text-wrap">Add a new game to your wishlist</h1>
+    </ion-card-header>
+
+    <ion-card-content *ngIf="stage < 4">
+      Enter the name of the game you want to add and search it. Then select it in the list below. Finally, click on the
+      'confirm selection' button.
+    </ion-card-content>
+    <ion-card-content *ngIf="stage === 4">
+      Enter the name you want the game to show up as on your wishlist, then click on 'submit selection'.
+    </ion-card-content>
+  </ion-card>
+
+  <lotana-lookup *ngIf="stage === 0" (gameSelected)="handleSelection($event)"></lotana-lookup>
+  <spelshop-lookup *ngIf="stage === 1" [initWithLookup]="gameNameInput" (gameSelected)="handleSelection($event)"></spelshop-lookup>
+  <queen-of-games-lookup *ngIf="stage === 2" [initWithLookup]="gameNameInput" (gameSelected)="handleSelection($event)"></queen-of-games-lookup>
+  <spelonk-lookup *ngIf="stage === 3" [initWithLookup]="gameNameInput" (gameSelected)="handleSelection($event)"></spelonk-lookup>
+  <add-to-wishlist-final *ngIf="stage === 4" [selection]="selection"></add-to-wishlist-final>
+</ion-content>

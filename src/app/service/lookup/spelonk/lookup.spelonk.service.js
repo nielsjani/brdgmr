@@ -27,11 +27,27 @@ var SpelonkLookupService = (function (_super) {
     };
     SpelonkLookupService.prototype.map = function () {
         var mapped = [];
-        var nodes = document.getElementById("jquerydump").getElementsByClassName("item");
+        var outOfStockItems = this.calculateOutOfStockItems();
+        var nodes = document.getElementById("jquerydump").getElementsByClassName("product-list").item(0).getElementsByTagName("li");
         for (var i = 0; i < nodes.length; i++) {
-            mapped.push(new SpelonkMapper().mapToBoardGame(nodes.item(i)));
+            mapped.push(new SpelonkMapper().mapToBoardGame(nodes.item(i), outOfStockItems));
         }
         return mapped;
+    };
+    SpelonkLookupService.prototype.calculateOutOfStockItems = function () {
+        var scripts = document.getElementsByTagName("script");
+        var outOfStockArray;
+        for (var i = 0; i < scripts.length; i++) {
+            if (scripts.item(i).outerHTML.indexOf("out_stock_list") !== -1) {
+                var scriptText = scripts.item(i).outerHTML;
+                outOfStockArray = scriptText.substring(scriptText.indexOf("out_stock_list:"), scriptText.indexOf("gray_style"))
+                    .replace(" ", "")
+                    .replace("out_stock_list:[", "")
+                    .replace("]", "")
+                    .split(",");
+            }
+        }
+        return outOfStockArray;
     };
     return SpelonkLookupService;
 }(LookupService));

@@ -1,0 +1,11 @@
+<form [formGroup]="addToWishlistForm" (ngSubmit)="saveSelection()">
+
+  <ion-item>
+    <ion-label>Game name</ion-label>
+    <ion-input type="text" formControlName="gamename" placeholder="Monopoly"></ion-input>
+  </ion-item>
+
+  <!--TODO: overview of selected game at shops-->
+  <!--Todo after submit, save to db and navigate to wishlist page-->
+  <button ion-button type="submit" secondary>Submit selection</button>
+</form>

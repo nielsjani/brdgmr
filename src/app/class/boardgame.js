@@ -1,6 +1,10 @@
 var Boardgame = (function () {
     function Boardgame() {
     }
+    Boardgame.prototype.withUrl = function (value) {
+        this.url = value;
+        return this;
+    };
     Boardgame.prototype.withName = function (value) {
         this.name = value;
         return this;

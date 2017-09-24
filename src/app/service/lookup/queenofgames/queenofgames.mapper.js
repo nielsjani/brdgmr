@@ -1,18 +1,24 @@
 import { Boardgame } from "../../../class/boardgame";
-var LotanaMapper = (function () {
-    function LotanaMapper() {
+var QueenOfGamesMapper = (function () {
+    function QueenOfGamesMapper() {
     }
-    LotanaMapper.prototype.mapToBoardGame = function (toMap) {
+    QueenOfGamesMapper.prototype.mapToBoardGame = function (toMap) {
         return new Boardgame()
-            .withName(toMap.getElementsByClassName("product-name")[0].textContent)
-            .withPrice(this.stripPrice(toMap.getElementsByClassName("price")[0].textContent))
-            .withAvailable(toMap.getElementsByClassName("out-of-stock").length === 0)
-            .withImage(toMap.getElementsByTagName("img")[0].src);
+            .withName(toMap.getElementsByClassName("woocommerce-loop-product__title")[0].textContent)
+            .withPrice(this.stripPrice(this.getPrice(toMap)))
+            .withAvailable(true)
+            .withImage(toMap.getElementsByTagName("img")[0].src)
+            .withUrl(toMap.getElementsByTagName("a")[0].href);
     };
-    LotanaMapper.prototype.stripPrice = function (priceText) {
+    QueenOfGamesMapper.prototype.getPrice = function (toMap) {
+        //If theres a discount, two prices are shown. The second one is always the discount price
+        var priceTags = toMap.getElementsByClassName("woocommerce-Price-amount amount");
+        return priceTags[priceTags.length - 1].textContent;
+    };
+    QueenOfGamesMapper.prototype.stripPrice = function (priceText) {
         return priceText.replace("€", "").trim();
     };
-    return LotanaMapper;
+    return QueenOfGamesMapper;
 }());
-export { LotanaMapper };
-//# sourceMappingURL=lotana.mapper.js.map
+export { QueenOfGamesMapper };
+//# sourceMappingURL=queenofgames.mapper.js.map
