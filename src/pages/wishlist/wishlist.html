@@ -16,17 +16,21 @@
     </button>
   </ion-item>
 
-  <!--TODO: fetch from db and show-->
-  <ion-list>
-    <ion-item>
-      <ion-thumbnail item-start>
-        <img src="https://ionicframework.com/dist/preview-app/www/assets/img/thumbnail-totoro.png">
-      </ion-thumbnail>
-      <h2>Monopoly</h2>
-      <!--<p>Hayao Miyazaki • 1988</p>-->
-      <button ion-button clear item-end>View</button>
-    </ion-item>
-  </ion-list>
+  <ion-item>
+    <ion-label>Toggle reorder mode</ion-label>
+    <ion-toggle [(ngModel)]="reorderModeEnabled"></ion-toggle>
+  </ion-item>
 
-  <!--<lotana-lookup></lotana-lookup>-->
+  <ion-list>
+    <ion-item-group reorder="{{reorderModeEnabled}}" (ionItemReorder)="reorderItems($event)">
+      <ion-item *ngFor="let wishlistItem of wishlist">
+        <ion-thumbnail item-start>
+          <img src="{{getFirstFilledInImageUrl(wishlistItem)}}">
+        </ion-thumbnail>
+        <h2>{{wishlistItem.order+1}}. </h2>
+        <p class="head-text-wrap">{{wishlistItem.displayName}}</p>
+        <button *ngIf="!reorderModeEnabled" ion-button clear item-end>View</button>
+      </ion-item>
+    </ion-item-group>
+  </ion-list>
 </ion-content>

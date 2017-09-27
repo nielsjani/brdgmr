@@ -2,18 +2,19 @@ import {Component, Input, OnInit} from "@angular/core";
 import {NavController} from "ionic-angular";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import Selection from "../../class/selection"
+import {WishlistService} from "../../service/wishlist.service";
+import WishlistItem from "../../class/wishlistitem";
 @Component({
   selector: 'add-to-wishlist-final',
   templateUrl: './add-to-wishlist-final.component.html'
 })
 export class AddToWishlisFinalLookupComponent implements OnInit{
   @Input()
-  // tslint:disable-next-line
   private selection: Selection[];
 
   private addToWishlistForm: FormGroup;
 
-  constructor(private navController: NavController, private formBuilder: FormBuilder) {
+  constructor(private navController: NavController, private formBuilder: FormBuilder, private wishlistService: WishlistService) {
     this.addToWishlistForm = this.formBuilder.group({
       gamename: new FormControl("")
     });
@@ -28,6 +29,26 @@ export class AddToWishlisFinalLookupComponent implements OnInit{
   }
 
   saveSelection() {
+    this.wishlistService.addWishlistItem(new WishlistItem()
+      .withDisplayName(this.addToWishlistForm.value.gamename)
+      .withSelection(this.selection))
+      .subscribe(response => this.navController.popToRoot())
+    ;
+  }
 
+  getTitle(selection: Selection){
+    if(selection.boardgame){
+      return selection.boardgame.name;
+    } else {
+      return "No game selected";
+    }
+  }
+
+  getPrice(selected: Selection) {
+    if(selected.boardgame){
+      return `(${selected.boardgame.price} euro)`;
+    } else {
+      return "";
+    }
   }
 }

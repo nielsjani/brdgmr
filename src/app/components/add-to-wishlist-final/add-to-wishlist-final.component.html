@@ -5,7 +5,18 @@
     <ion-input type="text" formControlName="gamename" placeholder="Monopoly"></ion-input>
   </ion-item>
 
-  <!--TODO: overview of selected game at shops-->
-  <!--Todo after submit, save to db and navigate to wishlist page-->
   <button ion-button type="submit" secondary>Submit selection</button>
 </form>
+
+<h1>Your selection</h1>
+<ion-card *ngFor="let selected of selection">
+  <img *ngIf="selected.boardgame" src="{{selected.boardgame.image}}"/>
+  <ion-card-content>
+    <ion-card-title>
+      {{getTitle(selected)}}
+    </ion-card-title>
+    <p>
+      @ store: {{selected.shop}} {{getPrice(selected)}}
+    </p>
+  </ion-card-content>
+</ion-card>

@@ -20,6 +20,8 @@ import {SpelonkLookupComponent} from "./components/spelonklookup/spelonk-lookup.
 import {SpelonkLookupService} from "./service/lookup/spelonk/lookup.spelonk.service";
 import {AddToWishlistPage} from "../pages/add-to-wishlist/add-to-wishlist";
 import {AddToWishlisFinalLookupComponent} from "./components/add-to-wishlist-final/add-to-wishlist-final.component";
+import {WishlistService} from "./service/wishlist.service";
+import { HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,7 @@ import {AddToWishlisFinalLookupComponent} from "./components/add-to-wishlist-fin
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -53,7 +56,8 @@ import {AddToWishlisFinalLookupComponent} from "./components/add-to-wishlist-fin
     LotanaLookupService,
     SpelshopLookupService,
     QueenOfGamesLookupService,
-    SpelonkLookupService
+    SpelonkLookupService,
+    WishlistService
   ]
 })
 export class AppModule {}
