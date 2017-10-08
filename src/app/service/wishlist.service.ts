@@ -22,4 +22,8 @@ export class WishlistService {
   update(wishlist: WishlistItem[]) {
     wishlist.forEach(item => this.http.put(`${this.baseUrl}/${this.schemaName}/${item.technicalId}.json`, JSON.stringify(item)).subscribe());
   }
+
+  getWishlistItem(id: string) {
+    return this.http.get(`${this.baseUrl}/${this.schemaName}/${id}.json`);
+  }
 }

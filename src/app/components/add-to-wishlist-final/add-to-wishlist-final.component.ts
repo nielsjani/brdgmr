@@ -28,6 +28,7 @@ export class AddToWishlisFinalLookupComponent implements OnInit{
     return this.selection.filter(selected => selected.boardgame)[0].boardgame.name;
   }
 
+
   saveSelection() {
     this.wishlistService.addWishlistItem(new WishlistItem()
       .withDisplayName(this.addToWishlistForm.value.gamename)

@@ -31,10 +31,7 @@
       </button>
     </ion-col>
     <ion-col>
-      <button ion-button round small icon-right color="{{getButtonColor(foundGame)}}">
-        {{getAvailableText(foundGame)}}
-        <ion-icon name="{{getIconName(foundGame)}}"></ion-icon>
-      </button>
+      <available-icon [available]="foundGame.available"></available-icon>
     </ion-col>
   </ion-row>
 </ion-card>

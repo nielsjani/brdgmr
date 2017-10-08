@@ -34,18 +34,6 @@ export class LookupResultsComponent implements OnInit{
     }
   }
 
-  getIconName(foundGame) {
-    return foundGame.available ? "checkmark" : "close";
-  }
-
-  getButtonColor(foundGame) {
-    return foundGame.available ? "secondary" : "danger";
-  }
-
-  getAvailableText(foundGame) {
-    return foundGame.available ? "Available" : "Unavailable";
-  }
-
   getGameName(){
     return this.gameLookupForm.value.gamename ? this.gameLookupForm.value.gamename : "game";
   }

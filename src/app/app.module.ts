@@ -22,12 +22,16 @@ import {AddToWishlistPage} from "../pages/add-to-wishlist/add-to-wishlist";
 import {AddToWishlisFinalLookupComponent} from "./components/add-to-wishlist-final/add-to-wishlist-final.component";
 import {WishlistService} from "./service/wishlist.service";
 import { HttpModule } from '@angular/http';
+import {WishlistDetailPage} from "../pages/wishlist-detail/wishlist-detail";
+import {AvailableIconComponent} from "./components/available-icon/available-icon.component";
+import {ShopinfoPresentPipe} from "./filter/shopinfo-present";
 
 @NgModule({
   declarations: [
     MyApp,
     WishlistPage,
     AddToWishlistPage,
+    WishlistDetailPage,
     ListPage,
     LookupResultsComponent,
     LotanaLookupComponent,
@@ -35,7 +39,9 @@ import { HttpModule } from '@angular/http';
     SpelonkLookupComponent,
     QueenOfGamesLookupComponent,
     AddToWishlisFinalLookupComponent,
-    UnavailablePipe
+    AvailableIconComponent,
+    UnavailablePipe,
+    ShopinfoPresentPipe
   ],
   imports: [
     BrowserModule,
@@ -47,7 +53,8 @@ import { HttpModule } from '@angular/http';
     MyApp,
     WishlistPage,
     ListPage,
-    AddToWishlistPage
+    AddToWishlistPage,
+    WishlistDetailPage
   ],
   providers: [
     StatusBar,
