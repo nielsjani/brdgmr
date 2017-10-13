@@ -16,18 +16,18 @@
     </button>
   </ion-item>
 
-  <ion-item>
+  <ion-item *ngIf="hasWishlist()">
     <ion-label>Toggle reorder mode</ion-label>
     <ion-toggle [(ngModel)]="reorderModeEnabled"></ion-toggle>
   </ion-item>
 
-  <ion-list>
+  <ion-list *ngIf="hasWishlist()">
     <ion-item-group reorder="{{reorderModeEnabled}}" (ionItemReorder)="reorderItems($event)">
-      <ion-item *ngFor="let wishlistItem of wishlist">
+      <ion-item *ngFor="let wishlistItem of personalWishlist.wishlistItems" (press)="showDeleteModal(wishlistItem)">
         <ion-thumbnail item-start>
           <img src="{{getFirstFilledInImageUrl(wishlistItem)}}">
         </ion-thumbnail>
-        <h2>{{wishlistItem.order+1}}. </h2>
+        <h2>{{wishlistItem.order}}. </h2>
         <p class="head-text-wrap">{{wishlistItem.displayName}}</p>
         <button *ngIf="!reorderModeEnabled" (click)="goToDetail(wishlistItem.technicalId)" ion-button clear item-end>View</button>
       </ion-item>

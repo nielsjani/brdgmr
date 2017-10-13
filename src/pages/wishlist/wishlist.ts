@@ -1,65 +1,44 @@
-import {Component, OnInit} from "@angular/core";
-import {NavController} from "ionic-angular";
+import {Component} from "@angular/core";
+import {AlertController, NavController} from "ionic-angular";
 import {AddToWishlistPage} from "../add-to-wishlist/add-to-wishlist";
 import {WishlistService} from "../../app/service/wishlist.service";
 import WishlistItem from "../../app/class/wishlistitem";
 import {WishlistDetailPage} from "../wishlist-detail/wishlist-detail";
+import Selection from "../../app/class/selection";
+import PersonalWishlist from "../../app/class/personalWishlist";
+import PersonalWishlistMapper from "../../app/class/PersonalWishlistMapper";
 
 @Component({
   selector: 'page-wishlist',
   templateUrl: 'wishlist.html'
 })
 export class WishlistPage {
-  wishlist: WishlistItem[] = [];
   reorderModeEnabled = false;
+  private personalWishlist: PersonalWishlist;
 
-  constructor(public navCtrl: NavController, private wishlistService: WishlistService) {
+  constructor(public navCtrl: NavController, private wishlistService: WishlistService, private alertCtrl: AlertController) {
   }
 
   ionViewDidEnter(): void {
-    this.wishlist = [];
     this.wishlistService.getWishlist()
       .subscribe(response => {
-        let result = response.json();
-        for (let key in result) {
-          if (result.hasOwnProperty(key)) {
-            result[key].technicalId = key;
-            this.wishlist.push(result[key]);
-          }
+        this.personalWishlist = new PersonalWishlistMapper(this.wishlistService).mapPersonalWishlist(response.json());
+        if(this.hasWishlist()){
+          this.fixWishlistOrder();
         }
-        this.determineOrder();
       });
   }
 
-  private determineOrder() {
-    let maxOrder = Math.max.apply(Math, this.wishlist.map(item => item.order || 0)) || 0;
-    let updateNeeded: WishlistItem[] = [];
-    this.wishlist.forEach(item => {
-      if (item.order === undefined) {
-        item.order = maxOrder + 1;
-        maxOrder++;
-        updateNeeded.push(item);
-      }
-    });
-    if (updateNeeded.length > 0) {
-      this.wishlistService.update(updateNeeded);
-    }
-    this.wishlist.sort((w1, w2) => w1.order - w2.order);
-  }
-
-  reorderItems(indexes) {
-    let element = this.wishlist[indexes.from];
-    this.wishlist.splice(indexes.from, 1);
-    this.wishlist.splice(indexes.to, 0, element);
-
-    for(let i = 0; i < this.wishlist.length; i++){
-      this.wishlist[i].order = i;
-    }
-    this.wishlistService.update(this.wishlist);
+  hasWishlist() {
+    return this.personalWishlist && this.personalWishlist.wishlistItems;
   }
 
   getFirstFilledInImageUrl(wishlistItem: WishlistItem) {
-    return wishlistItem.selection.filter(item => item.boardgame && item.boardgame.image)[0].boardgame.image;
+    return this.getFirstFilledInSelection(wishlistItem).boardgame.image;
+  }
+
+  private getFirstFilledInSelection(wishlistItem: WishlistItem): Selection {
+    return wishlistItem.selection.filter(item => item.boardgame && item.boardgame.image)[0];
   }
 
   goToAddToWishListPage() {
@@ -69,4 +48,60 @@ export class WishlistPage {
   goToDetail(id) {
     this.navCtrl.push(WishlistDetailPage, id);
   }
+
+  showDeleteModal(wishlistItem: WishlistItem) {
+    let alert = this.alertCtrl.create({
+      title: "Delete item?",
+      message: "Are you sure you want to delete " + this.getFirstFilledInSelection(wishlistItem).boardgame.name + " ?",
+      buttons: [
+        {
+          text: "Oops, please don't",
+          handler: data => console.log(this)
+        },
+        {
+          text: "Yes, delete it",
+          handler: data => console.log("AAAND.... ITS GONE")
+        }
+      ]
+    });
+
+    alert.present();
+  }
+
+  private fixWishlistOrder() {
+    for (let key in this.personalWishlist.wishlistItems) {
+      if (this.personalWishlist.wishlistItems.hasOwnProperty(key)) {
+        this.personalWishlist.wishlistItems[key].technicalId = key;
+      }
+    }
+    this.determineOrder();
+  }
+
+  private determineOrder() {
+    let maxOrder = Math.max.apply(Math, this.personalWishlist.wishlistItems.map(item => item.order || 0)) || 0;
+    let updateNeeded: boolean = false;
+    this.personalWishlist.wishlistItems.forEach(item => {
+      if (item.order === undefined) {
+        item.order = maxOrder + 1;
+        maxOrder++;
+        updateNeeded = true;
+      }
+    });
+    if (updateNeeded) {
+      this.wishlistService.update(this.personalWishlist);
+    }
+    this.personalWishlist.wishlistItems.sort((w1, w2) => w1.order - w2.order);
+  }
+
+  reorderItems(indexes) {
+    let element = this.personalWishlist.wishlistItems[indexes.from];
+    this.personalWishlist.wishlistItems.splice(indexes.from, 1);
+    this.personalWishlist.wishlistItems.splice(indexes.to, 0, element);
+
+    for (let i = 0; i < this.personalWishlist.wishlistItems.length; i++) {
+      this.personalWishlist.wishlistItems[i].order = i+1;
+    }
+    this.wishlistService.update(this.personalWishlist);
+  }
+
 }
