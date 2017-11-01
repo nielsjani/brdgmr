@@ -23,7 +23,7 @@ export class WishlistPage {
     this.wishlistService.getWishlist()
       .subscribe(response => {
         this.personalWishlist = new PersonalWishlistMapper(this.wishlistService).mapPersonalWishlist(response.json());
-        if(this.hasWishlist()){
+        if (this.hasWishlist()) {
           this.fixWishlistOrder();
         }
       });
@@ -55,12 +55,16 @@ export class WishlistPage {
       message: "Are you sure you want to delete " + this.getFirstFilledInSelection(wishlistItem).boardgame.name + " ?",
       buttons: [
         {
-          text: "Oops, please don't",
-          handler: data => console.log(this)
+          text: "Oops, please don't"
         },
         {
           text: "Yes, delete it",
-          handler: data => console.log("AAAND.... ITS GONE")
+          handler: () => {
+            let removedItemIndex = this.personalWishlist.wishlistItems.indexOf(wishlistItem);
+            this.decrementOrderOfItemsAboveIndex(removedItemIndex);
+            this.personalWishlist.wishlistItems.splice(removedItemIndex, 1);
+            this.wishlistService.update(this.personalWishlist);
+          }
         }
       ]
     });
@@ -104,4 +108,9 @@ export class WishlistPage {
     this.wishlistService.update(this.personalWishlist);
   }
 
+  private decrementOrderOfItemsAboveIndex(removedItemIndex: number) {
+    for (let i = removedItemIndex; i < this.personalWishlist.wishlistItems.length; i++) {
+      this.personalWishlist.wishlistItems[i].order--;
+    }
+  }
 }
