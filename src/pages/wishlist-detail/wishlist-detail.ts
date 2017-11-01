@@ -15,7 +15,7 @@ export class WishlistDetailPage {
   }
 
   ionViewDidEnter(): void {
-    this.wishlistService.getWishlistItem(this.navParams.data)
+    this.wishlistService.getWishlistItem(this.navParams.data.wishlistId, this.navParams.data.itemId)
       .subscribe(item => this.wishlistItem = item.json());
   }
 

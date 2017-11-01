@@ -23,8 +23,8 @@ export class WishlistService {
     return this.http.put(`${this.baseUrl}/${this.schemaName}/${personalWishlist.id}/wishlistItems.json`, JSON.stringify(personalWishlist.wishlistItems)).subscribe();
   }
 
-  getWishlistItem(id: string) {
-    return this.http.get(`${this.baseUrl}/${this.schemaName}/${id}.json`);
+  getWishlistItem(wishlistId: string, itemId: string) {
+    return this.http.get(`${this.baseUrl}/${this.schemaName}/${wishlistId}/wishlistItems/${itemId}.json`);
   }
 
   cleanUpOldWishlists(oldWishlists: string[]) {

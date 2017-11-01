@@ -46,7 +46,7 @@ export class WishlistPage {
   }
 
   goToDetail(id) {
-    this.navCtrl.push(WishlistDetailPage, id);
+    this.navCtrl.push(WishlistDetailPage, {wishlistId: this.personalWishlist.id, itemId: id});
   }
 
   showDeleteModal(wishlistItem: WishlistItem) {
