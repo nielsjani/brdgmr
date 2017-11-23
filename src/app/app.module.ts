@@ -25,6 +25,7 @@ import { HttpModule } from '@angular/http';
 import {WishlistDetailPage} from "../pages/wishlist-detail/wishlist-detail";
 import {AvailableIconComponent} from "./components/available-icon/available-icon.component";
 import {ShopinfoPresentPipe} from "./filter/shopinfo-present";
+import LookupServiceFinder from "./service/lookup/lookup.service.finder";
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import {ShopinfoPresentPipe} from "./filter/shopinfo-present";
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    LookupServiceFinder,
     LotanaLookupService,
     SpelshopLookupService,
     QueenOfGamesLookupService,

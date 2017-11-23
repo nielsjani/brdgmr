@@ -12,6 +12,9 @@
     <ion-card-content>
       <ion-list>
         <ion-item *ngFor="let selected of wishlistItem.selection | shopinfoPresent" class="cheapest-shop" [ngClass]="{'cheapest': isCheapest(selected)}">
+          <ion-avatar item-start (click)="refresh(selected)">
+            <img src="https://d30y9cdsu7xlg0.cloudfront.net/png/4985-200.png">
+          </ion-avatar>
             <ion-icon (click)="goToStore(selected.boardgame.url)" name="arrow-dropright" item-end></ion-icon>
           @ {{selected.shop}}: {{getPrice(selected)}} euro
           <br>
@@ -21,6 +24,15 @@
     </ion-card-content>
   </ion-card>
 
+  <!--TODO: refresh all-->
+  <!--<ion-fab top right edge>-->
+    <!--<button ion-fab>-->
+      <!--<ion-icon name="refresh">-->
+    <!--</ion-icon>-->
+    <!--</button>-->
+  <!--</ion-fab>-->
+
 </ion-content>
 
-<!--TODO: refresh button that checks store detail page for new price/availability-->
+
+<div id="jquerydump" style="display:none"></div>

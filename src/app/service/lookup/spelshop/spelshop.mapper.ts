@@ -21,4 +21,13 @@ export class SpelshopMapper {
   private stripPrice(priceText: string) {
     return priceText.replace("€", "").trim();
   }
+
+  mapToBoardGameWithoutUrl(boardgameInfo: Element, url: string): Boardgame {
+    return new Boardgame()
+      .withName(boardgameInfo.getElementsByClassName("h1")[0].textContent)
+      .withPrice(this.stripPrice(boardgameInfo.getElementsByClassName("current-price")[0].textContent))
+      .withAvailable(true)
+      .withImage(boardgameInfo.getElementsByClassName("product-cover")[0].getElementsByTagName("img")[0].src)
+      .withUrl(url)
+  }
 }

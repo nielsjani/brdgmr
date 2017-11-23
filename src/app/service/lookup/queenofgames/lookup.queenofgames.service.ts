@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {LookupService} from "../lookup.service";
 import {QueenOfGamesMapper} from "./queenofgames.mapper";
+import {Boardgame} from "../../../class/boardgame";
 
 
 @Injectable()
@@ -20,4 +21,12 @@ export class QueenOfGamesLookupService extends LookupService {
     }
     return mapped;
   }
+
+  mapForUrl(url): () => Boardgame {
+    return () => {
+      let boardgameInfo = document.getElementById("jquerydump").getElementsByClassName("product")[0];
+      return new QueenOfGamesMapper().mapToBoardGameWithoutUrl(boardgameInfo, url);
+    }
+  }
+
 }

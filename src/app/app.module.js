@@ -20,8 +20,16 @@ import { SpelshopLookupComponent } from "./components/spelshoplookup/spelshop-lo
 import { SpelshopLookupService } from "./service/lookup/spelshop/lookup.spelshop.service";
 import { QueenOfGamesLookupComponent } from "./components/queenofgameslookup/queenofgames-lookup.component";
 import { QueenOfGamesLookupService } from "./service/lookup/queenofgames/lookup.queenofgames.service";
-import { SpelonkLookupComponent } from "./components/spelonklookup/spelshop-lookup.component";
+import { SpelonkLookupComponent } from "./components/spelonklookup/spelonk-lookup.component";
 import { SpelonkLookupService } from "./service/lookup/spelonk/lookup.spelonk.service";
+import { AddToWishlistPage } from "../pages/add-to-wishlist/add-to-wishlist";
+import { AddToWishlisFinalLookupComponent } from "./components/add-to-wishlist-final/add-to-wishlist-final.component";
+import { WishlistService } from "./service/wishlist.service";
+import { HttpModule } from '@angular/http';
+import { WishlistDetailPage } from "../pages/wishlist-detail/wishlist-detail";
+import { AvailableIconComponent } from "./components/available-icon/available-icon.component";
+import { ShopinfoPresentPipe } from "./filter/shopinfo-present";
+import LookupServiceFinder from "./service/lookup/lookup.service.finder";
 var AppModule = (function () {
     function AppModule() {
     }
@@ -32,32 +40,42 @@ AppModule = __decorate([
         declarations: [
             MyApp,
             WishlistPage,
+            AddToWishlistPage,
+            WishlistDetailPage,
             ListPage,
             LookupResultsComponent,
             LotanaLookupComponent,
             SpelshopLookupComponent,
             SpelonkLookupComponent,
             QueenOfGamesLookupComponent,
-            UnavailablePipe
+            AddToWishlisFinalLookupComponent,
+            AvailableIconComponent,
+            UnavailablePipe,
+            ShopinfoPresentPipe
         ],
         imports: [
             BrowserModule,
             IonicModule.forRoot(MyApp),
+            HttpModule
         ],
         bootstrap: [IonicApp],
         entryComponents: [
             MyApp,
             WishlistPage,
-            ListPage
+            ListPage,
+            AddToWishlistPage,
+            WishlistDetailPage
         ],
         providers: [
             StatusBar,
             SplashScreen,
             { provide: ErrorHandler, useClass: IonicErrorHandler },
+            LookupServiceFinder,
             LotanaLookupService,
             SpelshopLookupService,
             QueenOfGamesLookupService,
-            SpelonkLookupService
+            SpelonkLookupService,
+            WishlistService
         ]
     })
 ], AppModule);

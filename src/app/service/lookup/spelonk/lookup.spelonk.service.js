@@ -17,7 +17,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { Injectable } from "@angular/core";
 import { SpelonkMapper } from "./spelonk.mapper";
 import { LookupService } from "../lookup.service";
-var SpelonkLookupService = (function (_super) {
+var SpelonkLookupService = SpelonkLookupService_1 = (function (_super) {
     __extends(SpelonkLookupService, _super);
     function SpelonkLookupService() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -27,14 +27,14 @@ var SpelonkLookupService = (function (_super) {
     };
     SpelonkLookupService.prototype.map = function () {
         var mapped = [];
-        var outOfStockItems = this.calculateOutOfStockItems();
+        var outOfStockItems = SpelonkLookupService_1.calculateOutOfStockItems();
         var nodes = document.getElementById("jquerydump").getElementsByClassName("product-list").item(0).getElementsByTagName("li");
         for (var i = 0; i < nodes.length; i++) {
             mapped.push(new SpelonkMapper().mapToBoardGame(nodes.item(i), outOfStockItems));
         }
         return mapped;
     };
-    SpelonkLookupService.prototype.calculateOutOfStockItems = function () {
+    SpelonkLookupService.calculateOutOfStockItems = function () {
         var scripts = document.getElementsByTagName("script");
         var outOfStockArray;
         for (var i = 0; i < scripts.length; i++) {
@@ -49,10 +49,18 @@ var SpelonkLookupService = (function (_super) {
         }
         return outOfStockArray;
     };
+    SpelonkLookupService.prototype.mapForUrl = function (url) {
+        return function () {
+            var boardgameInfo = document.getElementById("jquerydump").getElementsByClassName("product-info"[0]);
+            var outOfStockItems = SpelonkLookupService_1.calculateOutOfStockItems();
+            return new SpelonkMapper().mapToBoardGameWithoutUrl(boardgameInfo, url, outOfStockItems);
+        };
+    };
     return SpelonkLookupService;
 }(LookupService));
-SpelonkLookupService = __decorate([
+SpelonkLookupService = SpelonkLookupService_1 = __decorate([
     Injectable()
 ], SpelonkLookupService);
 export { SpelonkLookupService };
+var SpelonkLookupService_1;
 //# sourceMappingURL=lookup.spelonk.service.js.map

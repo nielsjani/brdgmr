@@ -3,19 +3,26 @@ import {NavController, NavParams} from "ionic-angular";
 import {WishlistService} from "../../app/service/wishlist.service";
 import WishlistItem from "../../app/class/wishlistitem";
 import Selection from "../../app/class/selection";
+import LookupServiceFinder from "../../app/service/lookup/lookup.service.finder";
+import {Boardgame} from "../../app/class/boardgame";
 @Component({
   selector: 'page-wishlist-detail',
   templateUrl: 'wishlist-detail.html',
 })
 export class WishlistDetailPage {
   private wishlistItem: WishlistItem;
+  private wishlistId: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private wishlistService: WishlistService) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private wishlistService: WishlistService,
+              private lookupServiceFinder: LookupServiceFinder) {
 
   }
 
   ionViewDidEnter(): void {
-    this.wishlistService.getWishlistItem(this.navParams.data.wishlistId, this.navParams.data.itemId)
+    this.wishlistId = this.navParams.data.wishlistId;
+    this.wishlistService.getWishlistItem(this.wishlistId, this.navParams.data.itemId)
       .subscribe(item => this.wishlistItem = item.json());
   }
 
@@ -35,8 +42,22 @@ export class WishlistDetailPage {
     window.open(url);
   }
 
-  isCheapest(selected) {
+  isCheapest(selected: Selection) {
     return !this.wishlistItem.selection.some(item => item.boardgame && parseInt(item.boardgame.price) < parseInt(selected.boardgame.price));
   }
 
+  refresh(selected: Selection) {
+    let lookupService = this.lookupServiceFinder.getLookupService(selected.shop);
+    lookupService.lookupDetail(selected.boardgame.url)
+      .then(bg => {
+        this.replaceBoardgameForShop(selected.shop, bg);
+        this.wishlistService.removeWishlistItem(this.wishlistId, this.wishlistItem.technicalId)
+          .subscribe(()=> this.wishlistService.addWishlistItemToWishlist(this.wishlistId, this.wishlistItem)
+            .subscribe(response => response));
+      });
+  }
+
+  private replaceBoardgameForShop(shop: string, bg: Boardgame) {
+    this.wishlistItem.selection.filter(selectionItem => selectionItem.shop === shop)[0].boardgame = bg;
+  }
 }

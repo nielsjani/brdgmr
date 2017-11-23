@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {LookupService} from "../lookup.service";
 import {LotanaMapper} from "./lotana.mapper";
+import {Boardgame} from "../../../class/boardgame";
 
 
 @Injectable()
@@ -20,4 +21,12 @@ export class LotanaLookupService extends LookupService {
     }
     return mapped;
   }
+
+  mapForUrl(url): () => Boardgame {
+    return () => {
+      let boardgameInfo = document.getElementById("jquerydump").getElementsByClassName("product-essential")[0];
+      return new LotanaMapper().mapToBoardGameWithoutUrl(boardgameInfo, url);
+    }
+  }
+
 }

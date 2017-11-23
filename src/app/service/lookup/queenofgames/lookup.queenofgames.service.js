@@ -35,6 +35,12 @@ var QueenOfGamesLookupService = (function (_super) {
         }
         return mapped;
     };
+    QueenOfGamesLookupService.prototype.mapForUrl = function (url) {
+        return function () {
+            var boardgameInfo = document.getElementById("jquerydump").getElementsByClassName("product")[0];
+            return new QueenOfGamesMapper().mapToBoardGameWithoutUrl(boardgameInfo, url);
+        };
+    };
     return QueenOfGamesLookupService;
 }(LookupService));
 QueenOfGamesLookupService = __decorate([

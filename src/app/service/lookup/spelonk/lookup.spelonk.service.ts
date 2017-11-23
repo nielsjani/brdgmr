@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {SpelonkMapper} from "./spelonk.mapper";
 import {LookupService} from "../lookup.service";
+import {Boardgame} from "../../../class/boardgame";
 
 @Injectable()
 export class SpelonkLookupService extends LookupService {
@@ -11,7 +12,7 @@ export class SpelonkLookupService extends LookupService {
 
   map() {
     let mapped = [];
-    let outOfStockItems = this.calculateOutOfStockItems();
+    let outOfStockItems = SpelonkLookupService.calculateOutOfStockItems();
     let nodes = document.getElementById("jquerydump").getElementsByClassName("product-list").item(0).getElementsByTagName("li");
     for (let i = 0; i < nodes.length; i++) {
       mapped.push(new SpelonkMapper().mapToBoardGame(nodes.item(i), outOfStockItems));
@@ -19,7 +20,7 @@ export class SpelonkLookupService extends LookupService {
     return mapped
   }
 
-  private calculateOutOfStockItems(): string[] {
+  private static calculateOutOfStockItems(): string[] {
     let scripts = document.getElementsByTagName("script");
     let outOfStockArray;
     for (let i = 0; i < scripts.length; i++) {
@@ -34,4 +35,12 @@ export class SpelonkLookupService extends LookupService {
     }
     return outOfStockArray;
   }
+
+  mapForUrl(url): () => Boardgame {
+    return () => {
+      let boardgameInfo = document.getElementById("jquerydump").getElementsByClassName("product-info")[0];
+      return new SpelonkMapper().mapToBoardGameWithoutUrl(boardgameInfo, url);
+    }
+  }
+
 }

@@ -3,7 +3,7 @@ export class Boardgame {
   public available: boolean;
   public price:string;
   public image:string;
-  private url: string;
+  public url: string;
 
   constructor() {
   }

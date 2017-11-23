@@ -7,21 +7,75 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component } from "@angular/core";
-import { SpelshopLookupService } from "../../service/lookup/spelshop/lookup.spelshop.service";
-var SpelshopLookupComponent = (function () {
-    function SpelshopLookupComponent(spelshopLookupService) {
-        this.spelshopLookupService = spelshopLookupService;
-        this.spelshopLookupService = spelshopLookupService;
+import { Component, Input } from "@angular/core";
+import { NavController } from "ionic-angular";
+import { FormBuilder, FormControl } from "@angular/forms";
+import { WishlistService } from "../../service/wishlist.service";
+import PersonalWishlist from "../../class/personalWishlist";
+import WishlistItem from "../../class/wishlistitem";
+import PersonalWishlistMapper from "../../class/PersonalWishlistMapper";
+var AddToWishlisFinalLookupComponent = (function () {
+    function AddToWishlisFinalLookupComponent(navController, formBuilder, wishlistService) {
+        this.navController = navController;
+        this.formBuilder = formBuilder;
+        this.wishlistService = wishlistService;
+        this.addToWishlistForm = this.formBuilder.group({
+            gamename: new FormControl("")
+        });
     }
-    return SpelshopLookupComponent;
+    AddToWishlisFinalLookupComponent.prototype.ngOnInit = function () {
+        this.addToWishlistForm.setValue({ gamename: this.getFirstGameName() });
+    };
+    AddToWishlisFinalLookupComponent.prototype.getFirstGameName = function () {
+        return this.selection.filter(function (selected) { return selected.boardgame; })[0].boardgame.name;
+    };
+    AddToWishlisFinalLookupComponent.prototype.saveSelection = function () {
+        var _this = this;
+        this.wishlistService.getWishlist()
+            .subscribe(function (response) {
+            _this.wishlistService.addWishlistItem(_this.addItemToWishlist(response))
+                .subscribe(function (response) { return _this.navController.popToRoot(); });
+        });
+    };
+    AddToWishlisFinalLookupComponent.prototype.addItemToWishlist = function (response) {
+        var wishlist = this.getOrCreateWishlist(response);
+        wishlist.withNewWishlistItem(new WishlistItem()
+            .withDisplayName(this.addToWishlistForm.value.gamename)
+            .withSelection(this.selection));
+        return wishlist;
+    };
+    AddToWishlisFinalLookupComponent.prototype.getTitle = function (selection) {
+        if (selection.boardgame) {
+            return selection.boardgame.name;
+        }
+        else {
+            return "No game selected";
+        }
+    };
+    AddToWishlisFinalLookupComponent.prototype.getPrice = function (selected) {
+        if (selected.boardgame) {
+            return "(" + selected.boardgame.price + " euro)";
+        }
+        else {
+            return "";
+        }
+    };
+    AddToWishlisFinalLookupComponent.prototype.getOrCreateWishlist = function (response) {
+        var wishlist = response.json();
+        return wishlist === null ? new PersonalWishlist() : new PersonalWishlistMapper(this.wishlistService).mapPersonalWishlist(wishlist);
+    };
+    return AddToWishlisFinalLookupComponent;
 }());
-SpelshopLookupComponent = __decorate([
+__decorate([
+    Input(),
+    __metadata("design:type", Array)
+], AddToWishlisFinalLookupComponent.prototype, "selection", void 0);
+AddToWishlisFinalLookupComponent = __decorate([
     Component({
-        selector: 'spelshop-lookup',
-        templateUrl: './spelshop-lookup.component.html'
+        selector: 'add-to-wishlist-final',
+        templateUrl: './add-to-wishlist-final.component.html'
     }),
-    __metadata("design:paramtypes", [SpelshopLookupService])
-], SpelshopLookupComponent);
-export { SpelshopLookupComponent };
-//# sourceMappingURL=spelshop-lookup.component.js.map
+    __metadata("design:paramtypes", [NavController, FormBuilder, WishlistService])
+], AddToWishlisFinalLookupComponent);
+export { AddToWishlisFinalLookupComponent };
+//# sourceMappingURL=add-to-wishlist-final.component.js.map

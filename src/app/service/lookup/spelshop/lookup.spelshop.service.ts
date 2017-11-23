@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {SpelshopMapper} from "./spelshop.mapper";
 import {LookupService} from "../lookup.service";
+import {Boardgame} from "../../../class/boardgame";
 
 @Injectable()
 export class SpelshopLookupService extends LookupService {
@@ -16,7 +17,14 @@ export class SpelshopLookupService extends LookupService {
     for (let i = 0; i < nodes.length; i++) {
       mapped.push(new SpelshopMapper().mapToBoardGame(nodes.item(i)));
     }
-    console.log(mapped);
     return mapped;
   }
+
+  mapForUrl(url): () => Boardgame {
+    return () => {
+      let boardgameInfo = document.getElementById("content-wrapper");
+      return new SpelshopMapper().mapToBoardGameWithoutUrl(boardgameInfo, url);
+    }
+  }
+
 }

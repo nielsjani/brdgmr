@@ -5,6 +5,14 @@ import {Boardgame} from "../../class/boardgame";
 export abstract class LookupService {
 
   lookup(name: string): IPromise {
+    return this.doLookup(`${this.getUrl()}${name.replace(" ", "+")}`, this.map);
+  }
+
+  lookupDetail(url: string): IPromise {
+    return this.doLookup(url, this.mapForUrl(url));
+  }
+
+  private doLookup(url: string, fnToCall) {
     $.ajaxPrefilter(function (options) {
       if (options.crossDomain && $.support.cors) {
         let http = (window.location.protocol === 'http:' ? 'http:' : 'https:');
@@ -14,11 +22,11 @@ export abstract class LookupService {
 
     let mapped = [];
 
-    return $.get(`${this.getUrl()}${name.replace(" ", "+")}`)
+    return $.get(url)
       .then(response => {
         const htmlDumpingGrounds = document.getElementById('jquerydump');
         htmlDumpingGrounds.insertAdjacentHTML('afterbegin', response);
-        mapped = this.map();
+        mapped = fnToCall();
         $("#jquerydump").empty();
         return mapped;
       });
@@ -27,4 +35,6 @@ export abstract class LookupService {
   abstract getUrl(): string;
 
   abstract map(): Boardgame[];
+
+  abstract mapForUrl(url: string): () => Boardgame;
 }

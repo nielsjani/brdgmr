@@ -29,6 +29,15 @@ export class SpelonkMapper {
   }
 
   private stripPrice(priceText: string) {
-    return priceText.replace("€", "").trim();
+    return priceText.replace("Prijs:", "").replace("€", "").trim();
+  }
+
+  mapToBoardGameWithoutUrl(boardgameInfo: Element, url: string) {
+    return new Boardgame()
+      .withName(boardgameInfo.getElementsByClassName("extra-wrap")[0].getElementsByTagName("h1")[0].textContent)
+      .withPrice(this.stripPrice(this.getPrice(boardgameInfo)))
+      .withAvailable(boardgameInfo.getElementsByClassName("prod-stock")[0].getElementsByTagName("img")[0].alt === "In Stock")
+      .withImage(boardgameInfo.getElementsByClassName("image")[0].getElementsByTagName("a")[0].href)
+      .withUrl(url)
   }
 }
