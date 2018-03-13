@@ -51,9 +51,8 @@ var SpelonkLookupService = SpelonkLookupService_1 = (function (_super) {
     };
     SpelonkLookupService.prototype.mapForUrl = function (url) {
         return function () {
-            var boardgameInfo = document.getElementById("jquerydump").getElementsByClassName("product-info"[0]);
-            var outOfStockItems = SpelonkLookupService_1.calculateOutOfStockItems();
-            return new SpelonkMapper().mapToBoardGameWithoutUrl(boardgameInfo, url, outOfStockItems);
+            var boardgameInfo = document.getElementById("jquerydump").getElementsByClassName("product-info")[0];
+            return new SpelonkMapper().mapToBoardGameWithoutUrl(boardgameInfo, url);
         };
     };
     return SpelonkLookupService;

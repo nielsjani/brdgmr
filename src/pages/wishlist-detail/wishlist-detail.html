@@ -24,6 +24,9 @@
     </ion-card-content>
   </ion-card>
 
+  <span *ngIf="wishlistItem">
+        <button *ngFor="let selected of wishlistItem.selection | shopinfoNotPresent" ion-button (click)="addShop(selected.shop)">Add shop: {{selected.shop}}</button>
+  </span>
   <!--TODO: refresh all-->
   <!--<ion-fab top right edge>-->
     <!--<button ion-fab>-->

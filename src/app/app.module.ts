@@ -26,6 +26,8 @@ import {WishlistDetailPage} from "../pages/wishlist-detail/wishlist-detail";
 import {AvailableIconComponent} from "./components/available-icon/available-icon.component";
 import {ShopinfoPresentPipe} from "./filter/shopinfo-present";
 import LookupServiceFinder from "./service/lookup/lookup.service.finder";
+import {ShopinfoNotPresentPipe} from "./filter/shopinfo-not-present";
+import {AddShopToWishlistPage} from "../pages/add-shop-to-wishlist/add-shop-to-wishlist";
 
 @NgModule({
   declarations: [
@@ -33,6 +35,7 @@ import LookupServiceFinder from "./service/lookup/lookup.service.finder";
     WishlistPage,
     AddToWishlistPage,
     WishlistDetailPage,
+    AddShopToWishlistPage,
     ListPage,
     LookupResultsComponent,
     LotanaLookupComponent,
@@ -42,7 +45,8 @@ import LookupServiceFinder from "./service/lookup/lookup.service.finder";
     AddToWishlisFinalLookupComponent,
     AvailableIconComponent,
     UnavailablePipe,
-    ShopinfoPresentPipe
+    ShopinfoPresentPipe,
+    ShopinfoNotPresentPipe
   ],
   imports: [
     BrowserModule,
@@ -55,7 +59,8 @@ import LookupServiceFinder from "./service/lookup/lookup.service.finder";
     WishlistPage,
     ListPage,
     AddToWishlistPage,
-    WishlistDetailPage
+    WishlistDetailPage,
+    AddShopToWishlistPage
   ],
   providers: [
     StatusBar,

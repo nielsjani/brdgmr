@@ -5,6 +5,7 @@ import WishlistItem from "../../app/class/wishlistitem";
 import Selection from "../../app/class/selection";
 import LookupServiceFinder from "../../app/service/lookup/lookup.service.finder";
 import {Boardgame} from "../../app/class/boardgame";
+import {AddShopToWishlistPage} from "../add-shop-to-wishlist/add-shop-to-wishlist";
 @Component({
   selector: 'page-wishlist-detail',
   templateUrl: 'wishlist-detail.html',
@@ -59,5 +60,9 @@ export class WishlistDetailPage {
 
   private replaceBoardgameForShop(shop: string, bg: Boardgame) {
     this.wishlistItem.selection.filter(selectionItem => selectionItem.shop === shop)[0].boardgame = bg;
+  }
+
+  addShop(shopName) {
+    this.navCtrl.push(AddShopToWishlistPage, { wishlistId: this.wishlistId, shopName: shopName });
   }
 }
